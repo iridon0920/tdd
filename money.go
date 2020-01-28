@@ -10,6 +10,10 @@ func NewDoller(amount int) *doller {
 	return doller
 }
 
-func (doller *doller) times(multiplier int) *doller {
-	return NewDoller(doller.amount * multiplier)
+func (d *doller) times(multiplier int) *doller {
+	return NewDoller(d.amount * multiplier)
+}
+
+func (d *doller) equals(doller *doller) bool {
+	return d.amount == doller.amount
 }

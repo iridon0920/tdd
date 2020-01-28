@@ -2,16 +2,16 @@ package money
 
 import (
 	"testing"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestMultiplication(t *testing.T) {
 	five := NewDoller(5)
-	product := five.times(2)
-	if (product.amount != 10) {
-		t.Errorf("amount = %d, want 10", five.amount)
-	}
-	product = five.times(3)
-	if (product.amount != 15) {
-		t.Errorf("amount = %d, want 15", five.amount)
-	}
+	assert.Equal(t, *five.times(2), *NewDoller(10))
+	assert.Equal(t, *five.times(3), *NewDoller(15))
+}
+
+func TestEquality(t *testing.T) {
+	assert.True(t, NewDoller(5).equals(NewDoller(5)))
+	assert.False(t, NewDoller(5).equals(NewDoller(6)))
 }
