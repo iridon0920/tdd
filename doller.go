@@ -1,7 +1,7 @@
 package money
 
 type doller struct {
-	amount int
+	value
 }
 
 func NewDoller(amount int) *doller {
@@ -10,10 +10,6 @@ func NewDoller(amount int) *doller {
 	return doller
 }
 
-func (d *doller) times(multiplier int) *doller {
-	return NewDoller(d.amount * multiplier)
-}
-
-func (d *doller) equals(doller *doller) bool {
-	return d.amount == doller.amount
+func (d *doller) times(multiplier int) value {
+	return NewDoller(d.amount * multiplier).value
 }
