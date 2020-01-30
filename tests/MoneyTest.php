@@ -2,28 +2,30 @@
 
 use Money\Doller;
 use Money\Franc;
+use Money\Money;
 use PHPUnit\Framework\TestCase;
 
 class MoneyTest extends TestCase
 {
     public function testMulitiplication()
     {
-        $five = new Doller(5);
-        $this->assertEquals($five->times(2), new Doller(10));
-        $this->assertEquals($five->times(3), new Doller(15));
+        $five = Money::doller(5);
+        $this->assertTrue($five->times(2)->equals(Money::doller(10)));
+        $this->assertTrue($five->times(3)->equals(Money::doller(15)));
     }
 
     public function testEquality()
     {
-        $doller = new Doller(5);
-        $this->assertTrue($doller->equals(new Doller(5)));
-        $this->assertFalse($doller->equals(new Doller(6)));
+        $doller = Money::doller(5);
+        $this->assertTrue($doller->equals(Money::doller(5)));
+        $this->assertFalse($doller->equals(Money::doller(6)));
+        $franc = Money::franc(5);
+        $this->assertFalse($franc->equals(Money::doller(5)));
     }
 
-    public function testFrancMultiplication()
+    public function testCurrency()
     {
-        $five = new Franc(5);
-        $this->assertEquals($five->times(2), new Franc(10));
-        $this->assertEquals($five->times(3), new Franc(15));
+        $this->assertEquals("USD", Money::doller(1)->currency());
+        $this->assertEquals("CHF", Money::franc(1)->currency());
     }
 }
