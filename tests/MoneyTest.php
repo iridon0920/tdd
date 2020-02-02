@@ -2,6 +2,7 @@
 
 use Money\Bank;
 use Money\Money;
+use Money\Sum;
 use PHPUnit\Framework\TestCase;
 
 class MoneyTest extends TestCase
@@ -35,5 +36,28 @@ class MoneyTest extends TestCase
         $bank = new Bank();
         $reduced = $bank->reduce($sum, "USD");
         $this->assertTrue(Money::doller(10)->equals($reduced));
+    }
+
+    public function testPlusReturnsSum()
+    {
+        $five = Money::doller(5);
+        $result = $five->plus($five);
+        $this->assertTrue($five->equals($result->Augend));
+        $this->assertTrue($five->equals($result->Addend));
+    }
+
+    public function testReduceSum()
+    {
+        $sum = new Sum(Money::doller(3), Money::doller(4));
+        $bank = new Bank();
+        $result = $bank->reduce($sum, "USD");
+        $this->assertTrue($result->equals(Money::doller(7)));
+    }
+
+    public function testReduceMoney()
+    {
+        $bank = new Bank();
+        $result = $bank->reduce(Money::doller(1), "USD");
+        $this->assertTrue($result->equals(Money::doller(1)));
     }
 }
