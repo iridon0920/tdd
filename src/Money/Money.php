@@ -34,9 +34,10 @@ class Money implements Expression
         return new Sum($this, $addend);
     }
 
-    public function reduce(string $to)
+    public function reduce(Bank $bank, string $to)
     {
-        return $this;
+        $rate = $bank->rate($this->Currency, $to);
+        return new Money($this->Amount / $rate, $to);
     }
 
     static function doller(int $amount): Money

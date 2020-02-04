@@ -60,4 +60,17 @@ class MoneyTest extends TestCase
         $result = $bank->reduce(Money::doller(1), "USD");
         $this->assertTrue($result->equals(Money::doller(1)));
     }
+
+    public function testReduceMoneyDifferentCurrency()
+    {
+        $bank = new Bank();
+        $bank->addRate("CHF", "USD", 2);
+        $result = $bank->reduce(Money::franc(2), "USD");
+        $this->assertTrue($result->equals(Money::doller(1)));
+    }
+
+    public function testArrayEquals()
+    {
+        
+    }
 }
