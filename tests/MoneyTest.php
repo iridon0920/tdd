@@ -1,6 +1,7 @@
 <?php
 
 use Money\Bank;
+use Money\Expression;
 use Money\Money;
 use Money\Sum;
 use PHPUnit\Framework\TestCase;
@@ -73,5 +74,15 @@ class MoneyTest extends TestCase
     {
         $bank = new Bank();
         $this->assertEquals(1, $bank->rate("USD", "USD"));
+    }
+
+    public function testMixedAddition()
+    {
+        $fiveBucks = Money::doller(5);
+        $tenFrancs = Money::franc(10);
+        $bank = new Bank();
+        $bank->addRate("CHF", "USD", 2);
+        $result = $bank->reduce($fiveBucks->plus($tenFrancs), "USD");
+        $this->assertEquals($result, Money::doller(10));
     }
 }

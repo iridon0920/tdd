@@ -24,17 +24,17 @@ class Money implements Expression
         return $this->Currency;
     }
 
-    public function times(int $multiplier): Money
+    public function times(int $multiplier): Expression
     {
         return new Money($this->Amount * $multiplier, $this->Currency);
     }
 
-    public function plus(Money $addend) : Expression
+    public function plus(Expression $addend) : Expression
     {
         return new Sum($this, $addend);
     }
 
-    public function reduce(Bank $bank, string $to)
+    public function reduce(Bank $bank, string $to) : Money
     {
         $rate = $bank->rate($this->Currency, $to);
         return new Money($this->Amount / $rate, $to);
