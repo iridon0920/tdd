@@ -69,8 +69,9 @@ class MoneyTest extends TestCase
         $this->assertTrue($result->equals(Money::doller(1)));
     }
 
-    public function testArrayEquals()
+    public function testIdentityRate()
     {
-        
+        $bank = new Bank();
+        $this->assertEquals(1, $bank->rate("USD", "USD"));
     }
 }
